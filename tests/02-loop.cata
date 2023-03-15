@@ -1,0 +1,13 @@
+# Begining of the main functions
+
+func main:
+    write "Looping example"
+    
+    loop 1..10 as i
+        write i
+    end
+
+    loop 10..1 as x
+        write x
+    end
+end

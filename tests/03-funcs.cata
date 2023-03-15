@@ -1,0 +1,12 @@
+# Not buildable
+# Testing
+
+func sum:
+    # Not implemented
+    #return x + y
+end
+
+func main:
+    write "Calling function"
+    # Not implemented
+end

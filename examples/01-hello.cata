@@ -1,0 +1,3 @@
+fn main:
+	write "Hello world from Cata"
+end
