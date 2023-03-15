@@ -5,6 +5,13 @@ Programming language written in C
 Remember,
 *!!!PROJECT IS UNDER HARD DEVELOPMENT*
 
+## Quick start
+
+``` terminal
+make
+./cata examples/01-hello.cata
+```
+
 ## Goals
 
 - Lexer :heavy_check_mark:
