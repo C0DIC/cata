@@ -123,6 +123,14 @@ int main(int argc, char **argv) {
 
     Token tokenized[BUFSIZ];
     lexer(program, tokenized, &tokens_count);
+    // Print tokens from file
+    for (size_t i = 0; i < tokens_count; ++i) {
+        printf("Token: %.*s -> %d\n",
+            (int)tokenized[i].token_value.length,
+            CS_FMT(tokenized[i].token_value),
+            tokenized[i].token_type
+        );
+    }
     parser(tokenized, tokens_count);
 
     return 0;

@@ -1,6 +1,6 @@
 # Begining of the main functions
 
-func main:
+fn main:
     write "Looping example"
     
     loop 1..10 as i

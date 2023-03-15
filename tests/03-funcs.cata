@@ -1,12 +1,12 @@
 # Not buildable
 # Testing
 
-func sum:
+fn sum:
     # Not implemented
-    #return x + y
+    return x + y
 end
 
-func main:
+fn main:
     write "Calling function"
     # Not implemented
 end

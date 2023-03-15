@@ -82,8 +82,13 @@ void lexer(char *program, Token *tokenArray, size_t *tokens_count) {
 
                     line = castr_cut_by(token.length + 1, line);
                     *tokens_count += 1;
+                } else if (castr_startswith("+", line)) {
+                    line = castr_cut_by(1, line);
+                    tokenArray[*tokens_count] = createToken(CS("+"), TOKEN_TYPE_PLUS);
+                    token = castr_untilc('+', line);
+                    *tokens_count += 1;
                 } else {
-                    if (token.data[0] == 0) {
+                    if (line.data[0] == 0) {
                         line = castr_cut_by(token.length, line);
                     } else {
                         if (isalpha(line.data[0])) {
