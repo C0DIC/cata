@@ -1,12 +1,3 @@
-//
-//
-//    write.c
-//    Created by C0DIC, 13/03/2023
-//
-//    Standart library method to write into stdout
-//    
-//    write 123
-
 #include "../token.h"
 #include "write.h"
 #include <stdio.h>

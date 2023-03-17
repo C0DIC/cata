@@ -15,6 +15,7 @@ typedef enum {
     TOKEN_TYPE_PLUS,
     TOKEN_TYPE_MINUS,
     TOKEN_TYPE_COLON,
+    TOKEN_TYPE_DOT,
     TOKEN_TYPE_WRITE,
     TOKEN_TYPE_QUOTE,
     TOKEN_TYPE_LOOP,
@@ -24,11 +25,14 @@ typedef enum {
     TOKEN_TYPE_RIGHT_BRACKET,
     TOKEN_TYPE_ITERATOR,
     TOKEN_TYPE_COMMENT,
+    TOKEN_TYPE_RETURN,
 } TokenType;
 
 typedef struct {
     CataStr token_value;
     unsigned int token_type;
+
+    bool marked_end;
 } Token;
 
 

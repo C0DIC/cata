@@ -8,5 +8,4 @@
 //    write(123)
 
 
-
 void cata_write(Token arg);

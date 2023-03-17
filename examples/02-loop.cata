@@ -1,0 +1,8 @@
+fn main:
+    write "Looping example"
+
+    loop 0..10
+        write "I'm a loop!"
+    end
+end
+

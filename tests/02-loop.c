@@ -9,3 +9,14 @@ int main() {
 
     return 0;
 }
+
+#if 0
+    //    Print tokens from file
+        for (size_t i = 0; i < tokens_count; ++i) {
+            printf("Token: %.*s -> %d\n",
+                (int)tokenized[i].token_value.length,
+                CS_FMT(tokenized[i].token_value),
+                tokenized[i].token_type
+            );
+        }
+#endif
