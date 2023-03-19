@@ -1,8 +1,5 @@
-fn main:
-    write "Looping example"
+write "Looping example"
 
-    loop 0..10
-        write "I'm a loop!"
-    end
+loop 0..10
+    write "I'm a loop!"
 end
-

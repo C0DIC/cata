@@ -7,7 +7,7 @@ Remember,
 
 ## Quick start
 
-``` terminal
+``` console
 make
 ./cata examples/01-hello.cata
 ```
@@ -17,7 +17,6 @@ make
 - Lexer :heavy_check_mark:
 - Parser :heavy_minus_sign:
 - STD Library :heavy_multiplication_x:
-- AST :heavy_multiplication_x:
 
 ## References
 

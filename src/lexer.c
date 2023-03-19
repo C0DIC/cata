@@ -46,6 +46,18 @@ void lexer(char *program, Token *tokenArray, size_t *tokens_count) {
             } else if (castr_same(token, CS("return"))) {
                 tokenArray[*tokens_count] = createToken(token, TOKEN_TYPE_RETURN);
                 *tokens_count += 1;
+            } else if (castr_same(token, CS("var"))) {
+                tokenArray[*tokens_count] = createToken(token, TOKEN_TYPE_VAR);
+                *tokens_count += 1;
+            } else if (castr_same(token, CS("int"))) {
+                tokenArray[*tokens_count] = createToken(token, TOKEN_TYPE_INT_TYPE);
+                *tokens_count += 1;
+            }  else if (castr_same(token, CS("float"))) {
+                tokenArray[*tokens_count] = createToken(token, TOKEN_TYPE_FLOAT_TYPE);
+                *tokens_count += 1;
+            } else if (castr_same(token, CS("str"))) {
+                tokenArray[*tokens_count] = createToken(token, TOKEN_TYPE_STRING_TYPE);
+                *tokens_count += 1;
             } else {
                 tokenArray[*tokens_count] = createToken(token, TOKEN_TYPE_NAME);
                 *tokens_count += 1;
@@ -86,6 +98,11 @@ void lexer(char *program, Token *tokenArray, size_t *tokens_count) {
                 token = CS("+");
                 cata_program = castr_trim(' ', castr_cut_by(token.length, cata_program));
                 tokenArray[*tokens_count] = createToken(token, TOKEN_TYPE_PLUS);
+                *tokens_count += 1;
+            } else if (cata_program.data[0] == '=') {
+                token = CS("=");
+                cata_program = castr_trim(' ', castr_cut_by(token.length, cata_program));
+                tokenArray[*tokens_count] = createToken(token, TOKEN_TYPE_EQUAL);
                 *tokens_count += 1;
             } else if (cata_program.data[0] == '#') {
                 cata_program = castr_trim(' ', castr_cutc('\n', cata_program));

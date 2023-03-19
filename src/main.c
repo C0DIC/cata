@@ -1,19 +1,22 @@
+#define CATA_VAR
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
 
-#include "lexer.h"
+#define CATA_PARSER
 #include "parser.h"
+
+#include "lexer.h"
+
 #include "catastring/catastring.h"
 
+#define CATA_WRITE
 #include "std/write.h"
+
+#define CATA_LOOP
 #include "std/loop.h"
-
-#define FUNCTION_NAMES_CAPACITY 2048
-
-CataStr FUNC_NAMES[BUFSIZ];
-CataStr VARIABLES_NAMES[BUFSIZ];
 
 static char *argv_next(int *argc, char ***argv) {
     assert(*argc > 0);
@@ -72,7 +75,7 @@ int main(int argc, char **argv) {
     char *program = readFile(cata_file);
     Token tokenized[BUFSIZ];
     lexer(program, tokenized, &tokens_count);
-    parser(tokenized, tokens_count);
+    parser(tokenized, 0, tokens_count);
 
     return 0;
 }

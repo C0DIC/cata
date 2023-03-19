@@ -1,0 +1,4 @@
+# Writing code without funcs
+var hello: str = "Hello, world!"
+
+write hello

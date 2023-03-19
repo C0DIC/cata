@@ -1,3 +1,2 @@
-fn main:
-    write "Hello world from Cata"
-end
+# Writing string into stdout
+write "Hello world from Cata"
