@@ -1,0 +1,11 @@
+# Creating variables with different types
+# int, float, string
+
+var string:    str = "I'm just a string!"
+var number:    int = 34
+var floating:  float = 69.0
+
+# Writing them into stdout
+write string
+write number
+write floating
