@@ -12,6 +12,30 @@ make
 ./cata examples/01-hello.cata
 ```
 
+## Hello World
+
+``` elixir
+write "Hello, world!"
+```
+
+## Variables
+
+``` elixir
+var hello: str = "hello, friend!"
+var number: int = 45
+
+write hello
+write number
+```
+
+## Loops (still unstable)
+
+``` elixir
+loop 0..10
+    write "Looping!"
+end
+```
+
 ## Goals
 
 - Lexer :heavy_check_mark:
