@@ -66,8 +66,14 @@ void lexer(char *program, Token *tokenArray, size_t *tokens_count) {
             token = castr_wdigit(cata_program);
             cata_program = castr_ltrim(' ', castr_cut_by(token.length, cata_program));
 
-            tokenArray[*tokens_count] = createToken(token, TOKEN_TYPE_INT);
-            *tokens_count += 1;
+            if (castr_has('.', token)) {
+                tokenArray[*tokens_count] = createToken(token, TOKEN_TYPE_FLOAT);
+                *tokens_count += 1;
+            } else {
+                tokenArray[*tokens_count] = createToken(token, TOKEN_TYPE_INT);
+                *tokens_count += 1;
+            }
+
         } else {
             if (cata_program.data[0] == ':') {
                 token = CS(":");

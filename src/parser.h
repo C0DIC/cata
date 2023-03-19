@@ -192,19 +192,58 @@ void cata_parse_variables(Token *tokenized, size_t tokens_count, size_t *pos) {
         tokenized[i].token_type != TOKEN_TYPE_FLOAT_TYPE &&
         tokenized[i].token_type != TOKEN_TYPE_STRING_TYPE
         ) {
-        fprintf(stderr, "ERROR: excepted variable type after name\n");
+        fprintf(stderr, "ERROR: excepted variable type after name, but got `%.*s`\n",
+                    (int)tokenized[i].token_value.length,
+                    CS_FMT(tokenized[i].token_value)
+        );
         exit(1);
-    }
-    
-    if (tokenized[i+1].token_type == TOKEN_TYPE_EQUAL) {
-        if (tokenized[i+2].token_type != TOKEN_TYPE_INT &&
-            tokenized[i+2].token_type != TOKEN_TYPE_STRING &&
-            tokenized[i+2].token_type != TOKEN_TYPE_FLOAT
-        ) {
-            CataVar variable = createCataVariable(tokenized[i-2].token_value, CS(" "), tokenized[i].token_type);
-            catavar_array_push(CATA_VARIABLES, variable);
+    } else {
+        if (tokenized[i+1].token_type == TOKEN_TYPE_EQUAL) {
+            if (tokenized[i+2].token_type != TOKEN_TYPE_INT &&
+                tokenized[i+2].token_type != TOKEN_TYPE_STRING &&
+                tokenized[i+2].token_type != TOKEN_TYPE_FLOAT
+            ) {
+                fprintf(stderr, "ERROR: excepted value after `=`, but got `%.*s`\n",
+                    (int)tokenized[i+2].token_value.length,
+                    CS_FMT(tokenized[i+2].token_value)
+                );
+                exit(1);
+            } else {
+                if (tokenized[i].token_type == TOKEN_TYPE_INT_TYPE
+                    && tokenized[i+2].token_type != TOKEN_TYPE_INT
+                ) {
+                    fprintf(stderr, "ERROR: type error. Excepted int, but got `%.*s`\n",
+                        (int)tokenized[i+2].token_value.length,
+                        CS_FMT(tokenized[i+2].token_value)
+                    );
+                    exit(1);
+                }
+
+                if (tokenized[i].token_type == TOKEN_TYPE_FLOAT_TYPE
+                    && tokenized[i+2].token_type != TOKEN_TYPE_FLOAT
+                ) {
+                    fprintf(stderr, "ERROR: type error. Excepted float, but got `%.*s`\n",
+                        (int)tokenized[i+2].token_value.length,
+                        CS_FMT(tokenized[i+2].token_value)
+                    );
+                    exit(1);
+                }
+
+                if (tokenized[i].token_type == TOKEN_TYPE_STRING_TYPE
+                    && tokenized[i+2].token_type != TOKEN_TYPE_STRING
+                ) {
+                    fprintf(stderr, "ERROR: type error. Excepted string, but got `%.*s`\n",
+                        (int)tokenized[i+2].token_value.length,
+                        CS_FMT(tokenized[i+2].token_value)
+                    );
+                    exit(1);
+                }
+
+                CataVar variable = createCataVariable(tokenized[i-2].token_value, tokenized[i+2].token_value, tokenized[i].token_type);
+                catavar_array_push(CATA_VARIABLES, variable);
+            }
         } else {
-            CataVar variable = createCataVariable(tokenized[i-2].token_value, tokenized[i+2].token_value, tokenized[i].token_type);
+            CataVar variable = createCataVariable(tokenized[i-2].token_value, CS(" "), tokenized[i].token_type);
             catavar_array_push(CATA_VARIABLES, variable);
         }
     }
