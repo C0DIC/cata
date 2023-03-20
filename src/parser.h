@@ -25,7 +25,6 @@ void cata_parse_write(Token *tokenized, size_t tokens_count, size_t *pos);
 void cata_parse_variables(Token *tokenized, size_t tokens_count, size_t *pos);
 
 void cata_parse_loop(Token *tokenized, size_t tokens_count, size_t *pos);
-void cata_parse_loop_block(Token *tokenized, size_t block_start, size_t block_end);
 
 #endif
 
@@ -38,9 +37,9 @@ void parser(Token *tokenized, size_t start_pos, size_t tokens_count) {
 
     for(; start_pos < tokens_count; ++start_pos) {
 
-        if (tokenized[start_pos].token_type == TOKEN_TYPE_FUNC) {
+        /*if (tokenized[start_pos].token_type == TOKEN_TYPE_FUNC) {
             cata_parse_fn(tokenized, tokens_count, &start_pos);
-        }
+        }*/
 
         if (tokenized[start_pos].token_type == TOKEN_TYPE_WRITE) {
             cata_parse_write(tokenized, tokens_count, &start_pos);
@@ -53,31 +52,6 @@ void parser(Token *tokenized, size_t start_pos, size_t tokens_count) {
         if (tokenized[start_pos].token_type == TOKEN_TYPE_VAR) {
             cata_parse_variables(tokenized, tokens_count, &start_pos);
         }
-    }
-}
-
- void cata_parse_fn(Token *tokenized, size_t tokens_count, size_t *pos) {
-    size_t i = *pos;
-    i += 1;
-    if (tokenized[i].token_type != TOKEN_TYPE_NAME) {
-        fprintf(stderr, "ERROR: excepted name after function declaration\n");
-        exit(1);
-    } else {
-        // TODO
-    }
-
-    while (i < tokens_count) {
-        if (tokenized[i].token_type == TOKEN_TYPE_END && 
-            tokenized[i].marked_end == false) {
-                tokenized[i].marked_end = true;
-                break;
-        }
-        i += 1;
-    }
-
-    if (i == tokens_count) {
-        fprintf(stderr, "ERROR: function block never closed\n");
-        exit(1);
     }
 }
 
