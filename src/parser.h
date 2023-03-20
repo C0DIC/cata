@@ -87,9 +87,13 @@ void cata_parse_write(Token *tokenized, size_t tokens_count, size_t *pos) {
 
     if (tokenized[i].token_type != TOKEN_TYPE_INT &&    
         tokenized[i].token_type != TOKEN_TYPE_STRING &&
+        tokenized[i].token_type != TOKEN_TYPE_FLOAT &&
         tokenized[i].token_type != TOKEN_TYPE_NAME
     ) {
-        fprintf(stderr, "ERROR: excepted int or string after `write`\n");
+        fprintf(stderr, "ERROR: `%.*s` is not writable\n",
+            (int)tokenized[i].token_value.length,
+            CS_FMT(tokenized[i].token_value)
+        );
         exit(1);
     } else {
         cata_write(tokenized[i], CATA_VARIABLES);
