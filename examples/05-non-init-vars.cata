@@ -1,0 +1,9 @@
+# Variables without initialization
+
+# String without init
+var string: str
+
+# String with init
+var stringg: str = "Hello"
+
+string = "Nani"

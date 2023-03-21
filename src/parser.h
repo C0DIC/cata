@@ -12,11 +12,16 @@
 #include <stdio.h>
 
 #include "catavar.h"
+
 #include "std/write.h"
 #include "std/loop.h"
+#include "std/conditions.h"
+
 #include "token.h"
 
 void parser(Token *tokenized, size_t start_pos, size_t tokens_count);
+
+void cata_parse_expr(Token *tokenized, size_t start_pos, size_t tokens_count);
 
 void cata_parse_fn(Token *tokenized, size_t tokens_count, size_t *pos);
 
@@ -25,6 +30,8 @@ void cata_parse_write(Token *tokenized, size_t tokens_count, size_t *pos);
 void cata_parse_variables(Token *tokenized, size_t tokens_count, size_t *pos);
 
 void cata_parse_loop(Token *tokenized, size_t tokens_count, size_t *pos);
+
+void cata_parse_condition(Token *tokenized, size_t tokens_count, size_t *pos);
 
 #endif
 
@@ -52,6 +59,10 @@ void parser(Token *tokenized, size_t start_pos, size_t tokens_count) {
         if (tokenized[start_pos].token_type == TOKEN_TYPE_VAR) {
             cata_parse_variables(tokenized, tokens_count, &start_pos);
         }
+
+        if (tokenized[start_pos].token_type == TOKEN_TYPE_IF) {
+            cata_parse_condition(tokenized, tokens_count, &start_pos);
+        }
     }
 }
 
@@ -59,7 +70,7 @@ void cata_parse_write(Token *tokenized, size_t tokens_count, size_t *pos) {
     size_t i = *pos;
     i += 1;
 
-    if (tokenized[i].token_type != TOKEN_TYPE_INT &&    
+    if (tokenized[i].token_type != TOKEN_TYPE_INT &&
         tokenized[i].token_type != TOKEN_TYPE_STRING &&
         tokenized[i].token_type != TOKEN_TYPE_FLOAT &&
         tokenized[i].token_type != TOKEN_TYPE_NAME
@@ -224,6 +235,68 @@ void cata_parse_variables(Token *tokenized, size_t tokens_count, size_t *pos) {
             CataVar variable = createCataVariable(tokenized[i-2].token_value, CS(" "), tokenized[i].token_type);
             catavar_array_push(CATA_VARIABLES, variable);
         }
+    }
+}
+
+void cata_parse_condition(Token *tokenized, size_t tokens_count, size_t *pos) {
+    size_t i = *pos;
+    CataVar condition;
+
+    i += 1;
+    if (tokenized[i].token_type == TOKEN_TYPE_INT) {
+        condition.type = INT_CATA;
+        condition.value.as_int = castr_to_lld(tokenized[i].token_value);
+    } else if (tokenized[i].token_type == TOKEN_TYPE_NAME) {
+        size_t pos = 0;
+
+        while (pos < BUFSIZ) {
+            if (castr_same(CATA_VARIABLES[pos].name, tokenized[i].token_value)) {
+                if (CATA_VARIABLES[pos].type == INT_CATA) {
+                    condition.value.as_int = CATA_VARIABLES[pos].value.as_int;
+                } else {
+                    fprintf(stderr, "ERROR: `%.*s` type is not arithemtic\n",
+                        (int)CATA_VARIABLES[pos].name.length,
+                        CS_FMT(CATA_VARIABLES[pos].name)
+                    );
+                    exit(1);
+                }
+
+                break;
+            }
+            pos += 1;
+        }
+
+        if (pos == BUFSIZ) {
+            fprintf(stderr, "ERROR: no variable named `%.*s`\n",
+                        (int)tokenized[i].token_value.length, 
+                         CS_FMT(tokenized[i].token_value));
+            exit(1);
+        }
+        
+        condition.name = tokenized[i].token_value;
+        condition.type = INT_CATA;
+    } else {
+        fprintf(stderr, "ERROR: the expression must have an arithmetic type, but found `%.*s`\n",
+                    (int)tokenized[i].token_value.length,
+                    CS_FMT(tokenized[i].token_value)
+        );
+        exit(1);
+    }
+
+    while (i <= tokens_count) {
+        if (tokenized[i].token_type == TOKEN_TYPE_END && 
+            tokenized[i].marked_end == false) {            
+                tokenized[i].marked_end = true;
+                size_t end_pos = i;
+                if_condition(condition, end_pos, pos);
+                break;
+        }
+        i++;
+    }
+
+    if (i >= tokens_count) {
+        fprintf(stderr, "ERROR: loop block never closed\n");
+        exit(1);
     }
 }
 

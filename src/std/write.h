@@ -26,6 +26,8 @@ void cata_write(Token arg, CataVar *variables) {
         );
     } else if (arg.token_type == TOKEN_TYPE_INT) {
         fprintf(stdout, "%lld\n", castr_to_lld(arg.token_value));
+    } else if (arg.token_type == TOKEN_TYPE_FLOAT) {
+        fprintf(stdout, "%lf\n", atof(arg.token_value.data));
     } else if (arg.token_type == TOKEN_TYPE_NAME) {
         size_t pos = 0;
 

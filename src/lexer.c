@@ -46,6 +46,12 @@ void lexer(char *program, Token *tokenArray, size_t *tokens_count) {
             } else if (castr_same(token, CS("return"))) {
                 tokenArray[*tokens_count] = createToken(token, TOKEN_TYPE_RETURN);
                 *tokens_count += 1;
+            } else if (castr_same(token, CS("if"))) {
+                tokenArray[*tokens_count] = createToken(token, TOKEN_TYPE_IF);
+                *tokens_count += 1;
+            } else if (castr_same(token, CS("else"))) {
+                tokenArray[*tokens_count] = createToken(token, TOKEN_TYPE_ELSE);
+                *tokens_count += 1;
             } else if (castr_same(token, CS("var"))) {
                 tokenArray[*tokens_count] = createToken(token, TOKEN_TYPE_VAR);
                 *tokens_count += 1;

@@ -1,11 +1,22 @@
 # Creating variables with different types
 # int, float, string
 
-var string:    str = "I'm just a string!"
-var number:    int = 34
-var floating:  float = 69.0
+var string:    str   = "I'm just a string!"
+var number:    int   = 34
+var floating:  float = 9.2
+
+# Testing expressions work
+var some:     int = 34 + 6
+
+# Expressions:
+# var some: int = ((34) + (6))
+#                   ^      ^
+#                  int  +  int
+#                       =
+#                      int
 
 # Writing them into stdout
 write string
 write number
 write floating
+write 21.32

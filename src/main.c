@@ -1,4 +1,5 @@
 #define CATA_VAR
+#define CATA_EXPR
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,6 +18,10 @@
 
 #define CATA_LOOP
 #include "std/loop.h"
+
+#define CATA_CONDITIONS
+#include "std/conditions.h"
+
 
 static char *argv_next(int *argc, char ***argv) {
     assert(*argc > 0);
@@ -75,6 +80,16 @@ int main(int argc, char **argv) {
     char *program = readFile(cata_file);
     Token tokenized[BUFSIZ];
     lexer(program, tokenized, &tokens_count);
+
+    /*
+    for (size_t i = 0; i < tokens_count; ++i) {
+        printf("Token: %.*s -> %d\n",
+            (int)tokenized[i].token_value.length,
+            CS_FMT(tokenized[i].token_value),
+            tokenized[i].token_type
+        );
+    }
+    */
     parser(tokenized, 0, tokens_count);
 
     return 0;

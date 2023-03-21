@@ -4,7 +4,7 @@
 //    Created by C0DIC, 19/03/2023
 //
 //
-//    Header, where cata variable structure implemented
+//    Header where cata variable structure implemented
 
 #ifndef CATA_VAR_H
 #define CATA_VAT_H
@@ -72,6 +72,12 @@ void catavar_array_push(CataVar *variables, CataVar variable) {
         pos += 1;
     }
     variables[pos] = variable;
+
+    pos = 0;
+    while (variables[pos].name.length != 0) {
+        
+        pos += 1;
+    }
 }
 
 #endif
