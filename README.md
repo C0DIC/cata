@@ -1,9 +1,11 @@
 # Cata
 
+__Development freezed, moved to [cvm](https://github.com/C0DIC/cvm) for now__
+
 Programming language written in C
 
 Remember,
-*!!!PROJECT IS UNDER HARD DEVELOPMENT*
+__!!!PROJECT IS UNDER HARD DEVELOPMENT__
 
 ## Quick start
 
