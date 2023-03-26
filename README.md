@@ -1,6 +1,4 @@
-# Cata
-
-__Development freezed, moved to [cvm](https://github.com/C0DIC/cvm) for now__
+# Cata __Development freezed, moved to [cvm](https://github.com/C0DIC/cvm) for now__
 
 Programming language written in C
 
